@@ -1,0 +1,7 @@
+//https://audiocaptain.com/best-songs-of-all-time/
+
+const axios = require('axios');
+const cheerio = require('cheerio');
+
+axios.get('https://audiocaptain.com/best-songs-of-all-time/')
+ .then(response => { const $ = cheerio.load(response.data); const data = []; $('div.item').each((index, element) => { const title = $(element).find('h3').text().trim(); const url = $(element).find('a').attr('href'); data.push({ title, url }); }); console.log(data); }) .catch(error => { console.error(error); }); 
